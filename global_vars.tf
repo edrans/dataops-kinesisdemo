@@ -32,3 +32,7 @@ variable "dynamo_table" {
 variable "cognito_pool" {
   default = "kinesisdemo"
 }
+
+variable "bucket_name" {
+  default = "edranskintest2"
+}
