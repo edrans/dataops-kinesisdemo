@@ -2,7 +2,7 @@
 var IdentityPoolId = ">>IDENTITY_POOL_ID<<";
 var Region = ">>REGION<<";
 
-IdentityPoolId = "us-east-1:801a8eab-7daf-4764-8706-662d93a02b7b";
+IdentityPoolId = "us-east-1:da0fcba0-02ef-434d-91be-966165ec2359";
 Region = "us-east-1";
 
 
@@ -84,17 +84,17 @@ function init() {
         if (AWS.config.credentials.identityId != null) {
 
         	var quadrant;
-        	
+
         	//  A | B
         	//  -----
         	//  C | D
-        	
-        	if(uiX >= 0 && uiX < 90 && uiY >=0 && uiY <= 45) {quadrant = 'A'}; 
-        	if(uiX >= 90 && uiX <= 180 && uiY >=0 && uiY <= 45) {quadrant = 'B'}; 
-        	if(uiX >= 0 && uiX < 90 && uiY > 45 && uiY <= 90) {quadrant = 'C'}; 
-        	if(uiX >= 90 && uiX <= 180 && uiY > 45 && uiY <= 90) {quadrant = 'D'}; 
-        	
-        	
+
+        	if(uiX >= 0 && uiX < 90 && uiY >=0 && uiY <= 45) {quadrant = 'A'};
+        	if(uiX >= 90 && uiX <= 180 && uiY >=0 && uiY <= 45) {quadrant = 'B'};
+        	if(uiX >= 0 && uiX < 90 && uiY > 45 && uiY <= 90) {quadrant = 'C'};
+        	if(uiX >= 90 && uiX <= 180 && uiY > 45 && uiY <= 90) {quadrant = 'D'};
+
+
             var orientationData = {
                 "recordTime": cT,
                 "cognitoId": AWS.config.credentials.identityId,
@@ -184,4 +184,3 @@ function getRandomPartitionKey() {
     return text;
 
 }
-

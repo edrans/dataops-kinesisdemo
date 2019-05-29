@@ -3,6 +3,10 @@ resource "aws_cognito_identity_pool" "main" {
   allow_unauthenticated_identities = true
 }
 
+output "cognito_identity_pool" {
+  value = "${aws_cognito_identity_pool.main.id}"
+}
+
 resource "aws_iam_role" "authenticated" {
   name_prefix = "cognito_authenticated"
 

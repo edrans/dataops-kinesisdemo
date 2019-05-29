@@ -18,7 +18,8 @@ exports.handler = (event, context, callback) => {
         TableName: table,
         Item: {
           "dataType": "quadrantRollup",
-          "windowtime": (new Date(data.WINDOW_TIME)).getTime(),
+          //"windowtime": (new Date(data.WINDOW_TIME)).getTime(),
+          "windowtime": (new Date().getTime()),
           "userCount": data.UNIQUE_USER_COUNT,
           "androidCount": data.ANDROID_COUNT,
           "iosCount": data.IOS_COUNT,

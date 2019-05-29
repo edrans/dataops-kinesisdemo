@@ -2,7 +2,7 @@ function init() {
     // Initialize the Amazon Cognito credentials provider
     AWS.config.region = "us-east-1"; // Region
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: "us-east-1:566d5a58-609c-4ec6-85f3-be20d008cfbd"
+        IdentityPoolId: "us-east-1:da0fcba0-02ef-434d-91be-966165ec2359"
     });
 
     AWS.config.credentials.get(function () {
@@ -212,14 +212,19 @@ function init() {
             },
             Limit: 1
         };
-
+        console.log("getLatestRecord")
         var docClient = new AWS.DynamoDB.DocumentClient();
 
 
         docClient.query(params, function(err, data) {
             if (err) console.log(err);
             else {
+                console.log("getLatestRecord")
+                console.log(firstRecord)
+                console.log(data.Items[0].windowtime)
                 console.log(data);
+
+
 
                 if(firstRecord == 0 && data.Items.length > 0) {
                     //if this is the first record, we're just going to ignore it because it

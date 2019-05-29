@@ -68,6 +68,19 @@ resource "aws_kinesis_analytics_application" "iot_sensor_application" {
       }
     }
   }
+
+  outputs {
+    lambda {
+      resource_arn = "${aws_lambda_function.kinesis_writer.arn}"
+      role_arn     = "${aws_iam_role.iam_for_kinesis.arn}"
+    }
+
+    name = "DESTINATION_SQL_STREAM"
+
+    schema {
+      record_format_type = "JSON"
+    }
+  }
 }
 
 resource "aws_iam_role" "iam_for_kinesis" {
@@ -135,7 +148,7 @@ resource "aws_iam_role_policy" "kinesis_policy" {
                 "lambda:GetFunctionConfiguration"
             ],
             "Resource": [
-                "${aws_lambda_function.kinesis_writer.invoke_arn}"
+                "${aws_lambda_function.kinesis_writer.arn}"
             ]
         }
     ]

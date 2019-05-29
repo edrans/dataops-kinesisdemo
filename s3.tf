@@ -33,7 +33,6 @@ variable "website_items" {
     "backend/3p/bootstrap/dist/fonts/glyphicons-halflings-regular.woff",
     "backend/3p/bootstrap/dist/fonts/glyphicons-halflings-regular.eot",
     "backend/3p/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2",
-    "backend/3p/bootstrap/dist/fonts/glyphicons-halflings-regular.eot?",
     "backend/3p/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf",
     "backend/3p/bootstrap/dist/fonts/glyphicons-halflings-regular.svg",
     "backend/3p/moment/min/moment.min.js",
@@ -61,7 +60,6 @@ variable "website_items" {
     "backend/3p/font-awesome/fonts/fontawesome-webfont.svg",
     "backend/3p/font-awesome/fonts/fontawesome-webfont.woff2",
     "backend/3p/font-awesome/fonts/fontawesome-webfont.ttf",
-    "backend/3p/font-awesome/fonts/fontawesome-webfont.eot?",
     "backend/3p/font-awesome/fonts/fontawesome-webfont.woff",
     "backend/3p/font-awesome/fonts/fontawesome-webfont.eot",
     "backend/3p/jqvmap/dist/maps/jquery.vmap.world.js",
@@ -81,11 +79,38 @@ variable "website_items" {
   ]
 }
 
+variable "mime-types" {
+  default = {
+    "js"    = "application/json"
+    "html"  = "text/html"
+    "jpg"   = "image/jpeg"
+    "svg"   = "image/svg+xml"
+    "png"   = "image/png"
+    "css"   = "text/css"
+    "woff2" = "font/woff2"
+    "ttf"   = "font/tff"
+    "eot"   = "font/eof"
+    "woff"  = "font/woff"
+  }
+}
+
 resource "aws_s3_bucket_object" "website_object" {
   count  = "${length(var.website_items)}"
   bucket = "${aws_s3_bucket.bucket.id}"
   key    = "${var.website_items[count.index]}"
   source = "demo/${var.website_items[count.index]}"
+  acl    = "public-read"
+
+  content_type = "${var.mime-types[element(
+                                        split(".",
+                                              "${var.website_items[count.index]}"
+                                              ),
+                                        length(
+                                              split(".",
+                                                    var.website_items[count.index]
+                                                    )
+                                              )-1
+                                          )]}"
 
   etag = "${filemd5("demo/${var.website_items[count.index]}")}"
 }
