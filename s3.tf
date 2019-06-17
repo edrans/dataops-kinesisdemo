@@ -98,9 +98,11 @@ resource "aws_s3_bucket_object" "website_object" {
   count  = "${length(var.website_items)}"
   bucket = "${aws_s3_bucket.bucket.id}"
   key    = "${var.website_items[count.index]}"
-  source = "demo/${var.website_items[count.index]}"
-  acl    = "public-read"
 
+  #source = "demo/${var.website_items[count.index]}"
+
+  content = "${replace(file("demo/${var.website_items[count.index]}"),">>IDENTITY_POOL_ID<<",aws_cognito_identity_pool.main.id)}"
+  acl     = "public-read"
   content_type = "${var.mime-types[element(
                                         split(".",
                                               "${var.website_items[count.index]}"
@@ -111,6 +113,5 @@ resource "aws_s3_bucket_object" "website_object" {
                                                     )
                                               )-1
                                           )]}"
-
   etag = "${filemd5("demo/${var.website_items[count.index]}")}"
 }

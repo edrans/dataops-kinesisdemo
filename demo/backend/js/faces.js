@@ -3,7 +3,7 @@ var IdentityPoolId = ">>IDENTITY_POOL_ID<<";
 
 
 Region = "us-east-1";
-IdentityPoolId = "us-east-1:da0fcba0-02ef-434d-91be-966165ec2359";
+//IdentityPoolId = "us-east-1:da0fcba0-02ef-434d-91be-966165ec2359";
 
 
 function init() {
