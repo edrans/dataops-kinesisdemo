@@ -14,6 +14,14 @@ output "website" {
   value = "${aws_s3_bucket.bucket.website_endpoint}"
 }
 
+output "bucketurl" {
+  value = "${aws_s3_bucket.bucket.bucket_domain_name}"
+}
+
+output "bucketregionurl" {
+  value = "${aws_s3_bucket.bucket.bucket_regional_domain_name}"
+}
+
 resource "aws_s3_bucket_public_access_block" "s3_allow_open" {
   bucket = "${aws_s3_bucket.bucket.id}"
 
