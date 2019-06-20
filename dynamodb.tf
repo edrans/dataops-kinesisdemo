@@ -16,7 +16,7 @@ resource "aws_dynamodb_table" "app-dynamodb-table" {
 
   attribute {
     name = "windowtime"
-    type = "N"
+    type = "S"
   }
 
   tags = "${var.tags}"
